@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <style>
+            body{
+                background: #31404D;
+                opacity: .8;
+            }
+            .clock{
+                height:400px;
+               width:400px;
+                position:absolute;
+                left:0;
+                top:0;
+                bottom:0;
+                right:0;
+                margin:auto;
+                border-radius: 50%;
+                border:10px solid #283641;
+                background:radial-gradient(#fff,#bbb);
+            }
+       </style>
+    </head>
+<body>
+<div class="clock">
+
+    </div>
+<script>
+
+                window.onload=function(){
+                       var clock=document.querySelector(".clock");
+                        var date=new Date();
+                        var hours=date.getHours();
+                        var min=date.getMinutes();
+                        var sec=date.getSeconds();
+                         var h=createPointer(10,70,'#94B91F',hours*6+min*6/12);
+                        var m=createPointer(6,110,'#94B91F',min*6);
+                        var s=createPointer(4,150,'#94B91F',sec*6);
+
+                                setInterval(function(){
+                                        var date=new Date();
+                                        hours=date.getHours();
+                                        min=date.getMinutes();
+                                        sec=date.getSeconds();
+                                        h.style.transform="rotate("+(hours*6+min*6/12)+"deg)";
+                                        m.style.transform="rotate("+min*6+"deg)";
+                                        s.style.transform="rotate("+sec*6+"deg)";
+                                    },1000);
+
+
+                            for(var i=0;i<60;i++){
+                                            if(i%5==0){
+                                                    var height=16;
+                                                    var width=8;
+                                                }else{
+                                                    var height=8;
+                                                    var width=4;
+                                    }
+                                var div=document.createElement("div");
+                                div.style.cssText="height:"+height+"px;width:"+width+"px;background:#000;position:absolute;left:"+(400-width)/2+"px;top:0";
+                                div.style.transform="rotate("+i*6+"deg)";
+                                div.style.transformOrigin="center 200px";
+                                clock.appendChild(div);
+                            }
+
+                                        /*
+                                         * 宽度，高度，颜色，角度
+                                         * */
+                                                function createPointer(w,h,c,a){
+                                                        var div=document.createElement("div");
+                                                        var lefts=(400-w)/2;
+                                                        var tops=400/2-h+10;
+                                                        div.style.cssText="width:"+w+"px;height:"+h+"px;background:"+c+";position:absolute;left:"+lefts+"px;top:"+tops+"px;transform-origin:center "+(h-10)+"px;transform:rotate("+a+"deg)";
+                                                        clock.appendChild(div);
+                                                        return div;
+                                                    }
+                    }
+
+            </script>
+</body>
+</html>
